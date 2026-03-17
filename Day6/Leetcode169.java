@@ -1,5 +1,5 @@
-class Leetcode136 {
-    public int singleNumber(int[] nums) {
+class Solution {
+    public int majorityElement(int[] nums) {
 
         int n = nums.length;
 
@@ -14,11 +14,11 @@ class Leetcode136 {
                 }
             }
 
-            if(count == 1) {
+            if(count > n / 2) {
                 return nums[i];
             }
         }
 
-        return -1;
+        return -1; // kabhi nahi aayega (given condition)
     }
 }
