@@ -1,0 +1,13 @@
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        
+        for (int i = 0; i < nums.length; i++) {
+            
+            if (nums[i] >= target) {
+                return i;  // mil gaya ya insert position mil gayi
+            }
+        }
+        
+        return nums.length; // agar target sabse bada hai
+    }
+}
