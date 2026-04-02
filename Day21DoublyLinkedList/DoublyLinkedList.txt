@@ -1,0 +1,250 @@
+🔹 1. Doubly Linked List kya hoti hai?
+
+👉 Doubly Linked List ek data structure hai jisme:
+
+Har element ko Node bolte hain
+Har node ke paas 3 cheeze hoti hain:
+Data (value)
+Previous pointer (prev) → pichle node ka address
+Next pointer (next) → agle node ka address
+Ex- NULL ← [10] ⇄ [20] ⇄ [30] → NULL
+
+🔹 2. Node ka structure (Java me)
+
+Sabse pehle hum Node class banayenge
+
+class Node {
+    int data;     // value store karega
+    Node prev;    // pichle node ka address
+    Node next;    // agle node ka address
+
+    Node(int data) {
+        this.data = data;
+        this.prev = null;
+        this.next = null;
+    }
+}
+👉 int data;
+→ isme value store hogi (jaise 10, 20)
+
+👉 Node prev;
+→ pichle node ka reference
+
+👉 Node next;
+→ agle node ka reference
+
+👉 Constructor:
+
+Node(int data)
+
+→ jab new node banega tab value set hogi
+
+
+
+🔹 3. Doubly Linked List Class
+class DoublyLinkedList {
+    Node head;   // first node
+
+    // constructor
+    DoublyLinkedList() {
+        head = null;
+    }
+}
+
+👉 head = list ka starting point
+
+
+
+🔹 4. Insert at Beginning (Head)
+public void insertAtBeginning(int data) {
+    Node newNode = new Node(data);
+
+    if (head == null) {
+        head = newNode;
+        return;
+    }
+
+    newNode.next = head;
+    head.prev = newNode;
+    head = newNode;
+}
+
+Step-by-step samjho
+Case 1: List empty
+head = null
+
+Case 2: List me already data hai
+
+Example:
+
+[10] ⇄ [20]
+
+Insert 5:
+
+Step:
+
+newNode = 5
+newNode.next = head (10)
+head.prev = newNode
+head = newNode
+
+Result:
+
+[5] ⇄ [10] ⇄ [20]
+
+
+
+
+🔹 5. Insert at End
+public void insertAtEnd(int data) {
+    Node newNode = new Node(data);
+
+    if (head == null) {
+        head = newNode;
+        return;
+    }
+
+    Node temp = head;
+
+    while (temp.next != null) {
+        temp = temp.next;
+    }
+
+    temp.next = newNode;
+    newNode.prev = temp;
+}
+
+🔍 Samjho
+👉 temp se last node tak jaate hain(Mtlb ye ek temporary hota hai njisko hm pura starting se visit krte hai)
+
+👉 phir:
+
+last.next = newNode
+newNode.prev = last
+
+
+
+🔹 6. Display (Forward)(isme hm aage ka data print krte hain)
+public void displayForward() {
+    Node temp = head;
+
+    while (temp != null) {
+        System.out.print(temp.data + " ");
+        temp = temp.next;
+    }
+}
+
+👉 Output:
+
+10 20 30
+
+
+
+🔹 7. Display (Backward) // isme hm piche ka data print krte hain
+public void displayBackward() {
+    Node temp = head;
+
+    // last node tak jao
+    while (temp.next != null) {
+        temp = temp.next;
+    }
+
+    // reverse print
+    while (temp != null) {
+        System.out.print(temp.data + " ");
+        temp = temp.prev;
+    }
+}
+
+👉 Output:
+
+30 20 10
+
+
+
+🔹 8. Complete Java Program
+public class Main {
+
+    static class Node {
+        int data;
+        Node prev, next;
+
+        Node(int data) {
+            this.data = data;
+            this.prev = null;
+            this.next = null;
+        }
+    }
+
+    static class DoublyLinkedList {
+        Node head;
+
+        public void insertAtBeginning(int data) {
+            Node newNode = new Node(data);
+
+            if (head == null) {
+                head = newNode;
+                return;
+            }
+
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        }
+
+        public void insertAtEnd(int data) {
+            Node newNode = new Node(data);
+
+            if (head == null) {
+                head = newNode;
+                return;
+            }
+
+            Node temp = head;
+
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+
+            temp.next = newNode;
+            newNode.prev = temp;
+        }
+
+        public void displayForward() {
+            Node temp = head;
+
+            while (temp != null) {
+                System.out.print(temp.data + " ");
+                temp = temp.next;
+            }
+        }
+
+        public void displayBackward() {
+            Node temp = head;
+
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+
+            while (temp != null) {
+                System.out.print(temp.data + " ");
+                temp = temp.prev;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        DoublyLinkedList list = new DoublyLinkedList();
+
+        list.insertAtBeginning(10);
+        list.insertAtBeginning(5);
+        list.insertAtEnd(20);
+        list.insertAtEnd(30);
+
+        System.out.print("Forward: ");
+        list.displayForward();
+
+        System.out.print("\nBackward: ");
+        list.displayBackward();
+    }
+}
